@@ -16,7 +16,7 @@ function validateEntry(data) {
 
 /* Apply check on each column of sudoku board*/
 
-function getColumns(board) {
+getColumns = (board) => {
     let isValid = true;
     for(let i = 0; i< 9; i++) {
         let col = [];
@@ -25,7 +25,6 @@ function getColumns(board) {
         }
         isValid = validateEntry(col);
         if (!isValid) {
-            isValid = false;
             break;
         }
     }
@@ -33,12 +32,11 @@ function getColumns(board) {
 }
 
 /* Apply check on each row of sudoku board */
-function getRows(board) {
+getRows = (board) => {
     let isValid = true;
     for(let i = 0; i< 9; i++) {
         isValid = validateEntry(board[i]);
         if (!isValid) {
-            isValid = false;
             break;
         }
     }
@@ -46,17 +44,16 @@ function getRows(board) {
 }
 
 /* Divide Sudoku board into sub-grids */
-function getGrids(board) {
+getGrids = (board) => {
     let isValid = true;
     let boardIndices = [0,3,6];
 
     // cut into sub-grids
 
     for(let i of boardIndices) {
-        for(let j of boardIndices){
-            let validator = validateGrid(board,i,j);
-            if (validator === false) {
-                isValid = false;
+        for(let j of boardIndices) {
+            isValid = validateGrid(board,i,j);
+            if (isValid === false) {
                 break;
             }
         }
@@ -65,19 +62,19 @@ function getGrids(board) {
 
 }
 
-function validateGrid(board,index1,index2) {
+validateGrid = (board,index1,index2) => {
     let gridData = [];
     let grid_board =[];
     for(let i = 0; i < 3; i++) {
-        for(let j = 0; j< 3; j++){
+        for(let j = 0; j< 3; j++) {
             grid_board.push(board[index1+i][index2+j])
         }
     }
-    gridData=gridData.concat(grid_board);
+    gridData = gridData.concat(grid_board);
     return validateEntry(gridData);
 }
 
-function validateSudoku(board) {
+validateSudoku = (board) => {
     const cols = getColumns(board);
     const rows = getRows(board);
     const grids = getGrids(board);
@@ -88,4 +85,16 @@ function validateSudoku(board) {
     }
 }
 
-validateSudoku(Boards.validBoard);
+const validBoard = [
+    [3,7,9,2,4,5,8,6,1],
+    [2,8,5,3,6,1,9,7,4],
+    [1,6,4,9,7,8,2,3,5],
+    [9,5,8,6,3,4,1,2,7],
+    [4,3,7,1,9,2,6,5,8],
+    [6,2,1,8,5,7,4,9,3],
+    [7,9,2,4,1,3,5,8,6],
+    [8,4,3,5,2,6,7,1,9],
+    [5,1,6,7,8,9,3,4,2]
+];
+
+validateSudoku(validBoard);
