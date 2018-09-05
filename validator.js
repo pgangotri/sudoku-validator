@@ -16,7 +16,7 @@ function validateEntry(data) {
 
 /* Apply check on each column of sudoku board*/
 
-getColumns = (board) => {
+const getColumns = (board) => {
     let isValid = true;
     for(let i = 0; i< 9; i++) {
         let col = [];
@@ -32,7 +32,7 @@ getColumns = (board) => {
 }
 
 /* Apply check on each row of sudoku board */
-getRows = (board) => {
+const getRows = (board) => {
     let isValid = true;
     for(let i = 0; i< 9; i++) {
         isValid = validateEntry(board[i]);
@@ -44,7 +44,7 @@ getRows = (board) => {
 }
 
 /* Divide Sudoku board into sub-grids */
-getGrids = (board) => {
+const getGrids = (board) => {
     let isValid = true;
     let boardIndices = [0,3,6];
 
@@ -62,7 +62,7 @@ getGrids = (board) => {
 
 }
 
-validateGrid = (board,index1,index2) => {
+const validateGrid = (board,index1,index2) => {
     let gridData = [];
     let grid_board =[];
     for(let i = 0; i < 3; i++) {
@@ -74,7 +74,7 @@ validateGrid = (board,index1,index2) => {
     return validateEntry(gridData);
 }
 
-validateSudoku = (board) => {
+const validateSudoku = (board) => {
     const cols = getColumns(board);
     const rows = getRows(board);
     const grids = getGrids(board);
